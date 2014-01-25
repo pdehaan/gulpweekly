@@ -1,4 +1,3 @@
-gulpweekly
-==========
+# gulpweekly
 
-GulpWeekly npm-bot
+@GulpWeekly npm-bot
