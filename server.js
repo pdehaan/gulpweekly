@@ -42,8 +42,7 @@ var twitterOptions = {
 npmer.on("pkgs", function (pkgs) {
   "use strict";
   pkgs.forEach(function (pkg) {
-    console.log("%s (%s): %s", pkg.name, pkg.version, pkg.url, pkg.keywords);
-    /**
+    // console.log("%s (%s): %s", pkg.name, pkg.version, pkg.url, pkg.keywords);
     tweeter.tweet(pkg).then(function (data) {
       if (data) {
         console.log(data);
@@ -51,6 +50,5 @@ npmer.on("pkgs", function (pkgs) {
     }, function (err) {
       console.error("fail: %s", err);
     });
-    */
   });
 });
