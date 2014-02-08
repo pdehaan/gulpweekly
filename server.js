@@ -13,6 +13,8 @@ function filterFunc(pkg) {
   return pkg.name.match(/^gulp-/i) || keywordFilter(pkg.keywords, ["gulp", "gulpplugin"]);
 }
 
+// ========== CONFIGS ----------------------------------------------------------
+
 
 // ========= MAIN --------------------------------------------------------------
 
@@ -29,7 +31,10 @@ var twitterOptions = {
   "access_token": process.env.ACCESS_TOKEN,
   "access_token_secret": process.env.ACCESS_TOKEN_SECRET
 };
-// var tweeter = new Tweeter("${name} (${version}): ${url} ${description}", twitterOptions, process.env.MONGOLAB_URI);
+
+var dbUri = process.env.MONGOLAB_URI;
+
+var tweeter = new Tweeter("${name} (${version}): ${url} ${description}", twitterOptions, dbUri);
 
 
 /* The `pkg` event gets dispatched for *every* package that matches the specified filter function. */
