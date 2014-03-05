@@ -10,7 +10,7 @@ var keywordFilter = require("./lib/NpmWatcher").keywordFilter;
 
 function filterFunc(pkg) {
   "use strict";
-  return pkg.name.match(/^gulp-/i) || keywordFilter(pkg.keywords, ["gulp", "gulpplugin"]);
+  return pkg.name.match(/^gulp-/i) || keywordFilter(pkg.keywords, ["gulp", "gulpplugin", "gulpfriendly"]);
 }
 
 // ========== CONFIGS ----------------------------------------------------------
