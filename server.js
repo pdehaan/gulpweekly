@@ -3,6 +3,7 @@
 var NpmWatcher = require("./lib/NpmWatcher").NpmWatcher;
 var Tweeter = require("./lib/Tweeter").Tweeter;
 
+var isBlacklisted = require("./lib/blacklist").isBlacklisted;
 var keywordFilter = require("./lib/NpmWatcher").keywordFilter;
 
 
@@ -10,20 +11,18 @@ var keywordFilter = require("./lib/NpmWatcher").keywordFilter;
 
 function filterFunc(pkg) {
   "use strict";
-  return pkg.name.match(/^gulp-/i) || keywordFilter(pkg.keywords, ["gulp", "gulpplugin", "gulpfriendly"]);
+  return (pkg.name.match(/^gulp-/i) || keywordFilter(pkg.keywords, ["gulp", "gulpplugin", "gulpfriendly"]) && !isBlacklisted(pkg.name));
 }
 
 // ========== CONFIGS ----------------------------------------------------------
 
-
-// ========= MAIN --------------------------------------------------------------
+var dbUri = process.env.MONGOLAB_URI;
 
 var npmOptions = {
   "since": "12h",
   "interval": "5m",
   "filterFunc": filterFunc
 };
-var npmer = new NpmWatcher(npmOptions);
 
 var twitterOptions = {
   "consumer_key": process.env.CONSUMER_KEY,
@@ -32,7 +31,10 @@ var twitterOptions = {
   "access_token_secret": process.env.ACCESS_TOKEN_SECRET
 };
 
-var dbUri = process.env.MONGOLAB_URI;
+
+// ========= MAIN --------------------------------------------------------------
+
+var npmer = new NpmWatcher(npmOptions);
 
 var tweeter = new Tweeter("${name} (${version}): ${url} ${description}", twitterOptions, dbUri);
 
